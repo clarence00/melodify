@@ -17,12 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${typeface.className} antialiased flex h-screen`}
+        className={`${typeface.className} antialiased flex h-screen bg-bgMain`}
         data-theme="lofi">
         <SideMenu />
         <div className="flex flex-col grow">
           <Header />
-          <div className="grow m-1">{children}</div>
+          <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary">
+            {children}
+          </div>
         </div>
       </body>
     </html>
