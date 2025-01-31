@@ -48,56 +48,6 @@ const SideMenu = ({ className }) => {
             </div>
           </div>
         </div>
-
-        {/* {links.map((item) => (
-          <div key={item.name}>
-            <Link
-              href={item.path}
-              className={`w-[80%] btn btn-md btn-ghost justify-start ${
-                active === item.name ? "btn-active" : ""
-              }`}
-              onClick={() => handleClick(item.name)}>
-              {item.icon}
-              {item.name}
-            </Link>
-          </div>
-        ))} */}
-
-        {/* <button
-          className={`w-[80%] btn btn-md btn-ghost justify-start ${
-            active === "Library" ? "btn-active" : ""
-          }`}
-          onClick={() => handleClick("Library")}
-          href="./">
-          <Library
-            className=""
-            style={{ width: "24px", height: "24px" }}
-          />
-          LIBRARY
-        </button>
-        <button
-          className={`w-[80%] btn btn-md btn-ghost justify-start ${
-            active === "Playlist" ? "btn-active" : ""
-          }`}
-          onClick={() => handleClick("Playlist")}
-          href="./playlist">
-          <Playlist
-            className=""
-            style={{ width: "24px", height: "24px" }}
-          />
-          PLAYLIST
-        </button>
-        <button
-          className={`w-[80%] btn btn-md btn-ghost justify-start ${
-            active === "Upload" ? "btn-active" : ""
-          }`}
-          onClick={() => handleClick("Upload")}>
-          <Upload
-            className=""
-            style={{ width: "24px", height: "24px" }}
-          />
-          UPLOAD
-        </button> */}
       </div>
     </>
   );
