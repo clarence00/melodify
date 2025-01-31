@@ -1,5 +1,9 @@
-import Image from "next/image";
+import Library from "./(dashboard)/library/page";
 
 export default function Home() {
-  return <>HELLO WORLD</>;
+  return (
+    <>
+      <Library />
+    </>
+  );
 }

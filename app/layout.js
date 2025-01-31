@@ -1,5 +1,7 @@
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import SideMenu from "./components/SideMenu";
+import Header from "./components/Header";
 
 const typeface = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -15,9 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${typeface.className} antialiased`}
+        className={`${typeface.className} antialiased flex h-screen`}
         data-theme="lofi">
-        {children}
+        <SideMenu />
+        <div className="flex flex-col grow">
+          <Header />
+          <div className="grow m-1">{children}</div>
+        </div>
       </body>
     </html>
   );
