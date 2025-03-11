@@ -25,6 +25,9 @@ export default function RootLayout({ children }) {
           <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary">
             {children}
           </div>
+          <div className="h-16 ml-1 mr-3 mb-2 rounded-lg bg-bgSecondary">
+            PLAYER
+          </div>
         </div>
       </body>
     </html>
