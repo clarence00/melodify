@@ -1,11 +1,11 @@
-import React from "react";
+import Upload from "@/app/(dashboard)/upload/Upload";
 
-const Upload = () => {
+const UploadPage = () => {
   return (
     <>
-      <div className="h-full w-full">Upload</div>
+      <Upload />
     </>
   );
 };
 
-export default Upload;
+export default UploadPage;
