@@ -8,7 +8,7 @@ const Header = () => {
   const links = ["/", "/search"];
 
   return (
-    <div className="bg-bgMain navbar min-h-3 p-0 flex">
+    <div className="bg-bgMain navbar p-0 flex h-fit">
       <Link
         href={links[0]}
         className={`btn w-[15%] border-none pl-6 m-2 ml-1 justify-start hover:bg-bgSecondary/[0.9] ${

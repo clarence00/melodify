@@ -1,11 +1,11 @@
-import React from "react";
+import Library from "@/app/(dashboard)/library/Library";
 
-const Library = () => {
+const LibraryPage = () => {
   return (
     <>
-      <div className="h-full w-full">Library</div>
+      <Library />
     </>
   );
 };
 
-export default Library;
+export default LibraryPage;

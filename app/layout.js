@@ -20,9 +20,9 @@ export default function RootLayout({ children }) {
         className={`${typeface.className} antialiased flex h-screen bg-bgMain`}
         data-theme="lofi">
         <SideMenu />
-        <div className="flex flex-col grow">
+        <div className="flex flex-col grow overflow-hidden">
           <Header />
-          <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary">
+          <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary overflow-y-auto h-full">
             {children}
           </div>
           <div className="h-16 ml-1 mr-3 mb-2 rounded-lg bg-bgSecondary">
