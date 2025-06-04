@@ -1,80 +1,131 @@
 "use client";
-import { useState, useEffect } from "react";
-import { supabase } from "@/utils/supabaseClient";
-import * as mm from "music-metadata-browser";
+import { useState } from "react";
+import { Heart, AlignJustify, List, Play } from "lucide-react";
+import { useAudio } from "@/app/context/AudioContext";
+import { useFetchAudioFiles } from "@/app/hooks/useFetchAudioFiles";
 
 const Library = () => {
-  const [audioFiles, setAudioFiles] = useState([]);
-
-  useEffect(() => {
-    fetchUploadedFiles();
-  }, []);
-
-  const fetchUploadedFiles = async () => {
-    const { data, error } = await supabase.storage
-      .from("music")
-      .list("uploads");
-    if (error) {
-      console.error("Error fetching files: ", error);
-      return;
-    }
-
-    const filesWithMetadata = await Promise.all(
-      data.map(async (file) => {
-        const { data: urlData } = supabase.storage
-          .from("music")
-          .getPublicUrl(`uploads/${file.name}`);
-
-        const response = await fetch(urlData.publicUrl);
-        const blob = await response.blob();
-        const metadata = await mm.parseBlob(blob);
-
-        const artist = metadata.common.artist || "Unknown Artist";
-        const albumArt =
-          metadata.common.picture?.[0] &&
-          URL.createObjectURL(new Blob([metadata.common.picture[0].data]));
-
-        return {
-          ...file,
-          publicUrl: urlData.publicUrl,
-          artist,
-          albumArt,
-        };
-      })
-    );
-    setAudioFiles(filesWithMetadata);
-  };
+  const { audioFiles, isLoading } = useFetchAudioFiles();
+  const { playAudio } = useAudio();
+  const [viewMode, setViewMode] = useState("list");
 
   return (
     <div className="max-h-full w-full p-4">
-      {audioFiles.length > 0 ? (
-        audioFiles.map((file) => (
-          <div
-            key={file.name}
-            className="mb-4 p-4 bg-white rounded shadow flex items-center gap-4">
-            {file.albumArt ? (
-              <img
-                src={file.albumArt}
-                alt="Album Art"
-                className="w-16 h-16 rounded"
-              />
-            ) : (
-              <div className="w-16 h-16 bg-gray-300 flex items-center justify-center text-sm text-gray-600">
-                No Art
-              </div>
-            )}
-            <div className="w-full">
-              <p className="font-medium">{file.name}</p>
-              <p className="text-gray-600">{file.artist}</p>
-
-              <audio
-                controls
-                src={file.publicUrl}
-                className="w-full mt-2"
-              />
+      <div className="flex justify-end gap-4 w-full mb-4 pr-2">
+        <div
+          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+            viewMode === "list"
+              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
+              : "text-fgSecondary"
+          }`}
+          onClick={() => setViewMode("list")}>
+          <List className="size-5" />
+        </div>
+        <div
+          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+            viewMode === "compact"
+              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
+              : "text-fgSecondary"
+          }`}
+          onClick={() => setViewMode("compact")}>
+          <AlignJustify className="size-5" />
+        </div>
+      </div>
+      {isLoading ? (
+        <div className="w-full text-center text-fgSecondary">
+          Fetching music...
+        </div>
+      ) : audioFiles.length > 0 ? (
+        <>
+          <div className="flex-col flex gap-2">
+            <div className="px-2 grid grid-cols-12 font-semibold text-fgSecondary">
+              <span
+                className={`${
+                  viewMode === "list" ? "col-span-5" : "col-span-4"
+                }`}>
+                Title
+              </span>
+              {viewMode === "compact" && (
+                <span className="col-span-3">Artist</span>
+              )}
+              <span
+                className={`${
+                  viewMode === "list" ? "col-span-4" : "col-span-3"
+                }`}>
+                Album
+              </span>
+              <span>Duration</span>
+              <span></span>
             </div>
+            <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
+            {audioFiles.map((file) =>
+              viewMode === "list" ? (
+                <div
+                  key={file.name}
+                  className="p-2 grid grid-cols-12 items-center w-full bg-bgSecondary cursor-pointer hover:bg-fgTertiary rounded-lg"
+                  onClick={() => playAudio(file)}>
+                  <div className="flex gap-4 items-center col-span-5">
+                    <img
+                      src={file.albumArt}
+                      alt={file.name}
+                      className="w-12 h-12 rounded-lg"
+                    />
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-fgPrimary">
+                        {file.name.replace(".mp3", "")}
+                      </span>
+                      <span className="text-sm text-fgSecondary">
+                        {file.artist || "Unknown Artist"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-span-4">
+                    <span className="text-sm text-fgSecondary">
+                      {file.album || "Unknown Album"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-sm text-fgSecondary">
+                      {file.duration || "00:00"}
+                    </span>
+                  </div>
+                  <div className="place-items-center">
+                    <Heart className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={file.name}
+                  className="p-2 grid grid-cols-12 items-center w-full bg-bgSecondary cursor-pointer hover:bg-fgTertiary rounded-lg"
+                  onClick={() => playAudio(file)}>
+                  <div className="col-span-4">
+                    <span className="text-fgPrimary font-semibold">
+                      {file.name.replace(".mp3", "")}
+                    </span>
+                  </div>
+                  <div className="col-span-3">
+                    <span className="text-sm text-fgSecondary">
+                      {file.artist || "Unknown Artist"}
+                    </span>
+                  </div>
+                  <div className="col-span-3">
+                    <span className="text-sm text-fgSecondary">
+                      {file.album || "Unknown Album"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-sm text-fgSecondary">
+                      {file.duration || "00:00"}
+                    </span>
+                  </div>
+                  <div className="place-items-center">
+                    <Heart className="size-4 text-fgSecondary cursor-pointer hover:text-accent" />
+                  </div>
+                </div>
+              )
+            )}
           </div>
-        ))
+        </>
       ) : (
         <p>No files uploaded yet.</p>
       )}
