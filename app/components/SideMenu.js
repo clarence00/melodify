@@ -11,7 +11,7 @@ const SideMenu = () => {
 
   return (
     <>
-      <div className="left-0 w-[15%] p-2">
+      <div className="left-0 min-w-[15%] max-w-[15%] p-2">
         <div
           className={`h-full rounded-lg flex flex-col gap-4 ${
             isActive
