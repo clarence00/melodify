@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { Play } from "lucide-react";
-import { useAudio } from "@/app/context/AudioContext";
-import { useFetchAudioFiles } from "@/app/hooks/useFetchAudioFiles";
+import { useAudio } from "../../context/AudioContext";
+import { useFetchAudioFiles } from "../../hooks/useFetchAudioFiles";
 
 const Home = () => {
   const { audioFiles, isLoading } = useFetchAudioFiles();

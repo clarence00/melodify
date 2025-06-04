@@ -1,4 +1,4 @@
-import Upload from "@/app/(dashboard)/upload/Upload";
+import Upload from "./Upload";
 
 const UploadPage = () => {
   return (

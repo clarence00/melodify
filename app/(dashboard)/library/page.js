@@ -1,4 +1,4 @@
-import Library from "@/app/(dashboard)/library/Library";
+import Library from "./Library";
 
 const LibraryPage = () => {
   return (

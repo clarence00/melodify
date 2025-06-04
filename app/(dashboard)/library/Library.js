@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Heart, AlignJustify, List, Play } from "lucide-react";
-import { useAudio } from "@/app/context/AudioContext";
-import { useFetchAudioFiles } from "@/app/hooks/useFetchAudioFiles";
+import { Heart, AlignJustify, List } from "lucide-react";
+import { useAudio } from "../../context/AudioContext";
+import { useFetchAudioFiles } from "../../hooks/useFetchAudioFiles";
 
 const Library = () => {
   const { audioFiles, isLoading } = useFetchAudioFiles();

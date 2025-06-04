@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
-import { useAudio } from "@/app/context/AudioContext";
+import { useAudio } from "../context/AudioContext";
 
 const Player = () => {
   const { currentAudio, currentFile } = useAudio();
