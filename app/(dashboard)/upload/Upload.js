@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { FilePlus } from "lucide-react";
-import { supabase } from "@/utils/supabaseClient";
+import { supabase } from "@/app/utils/supabaseClient";
 
 const Upload = () => {
   const [file, setFile] = useState([]);
