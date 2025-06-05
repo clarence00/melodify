@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import * as mm from "music-metadata-browser";
 
-const formatDuration = (seconds: number): string => {
+const formatDuration = (seconds) => {
   if (!seconds || isNaN(seconds)) return "00:00";
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
@@ -12,7 +12,7 @@ const formatDuration = (seconds: number): string => {
 };
 
 export const useFetchAudioFiles = () => {
-  const [audioFiles, setAudioFiles] = useState<any[]>([]);
+  const [audioFiles, setAudioFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUploadedFiles = async () => {
