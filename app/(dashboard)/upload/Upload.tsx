@@ -13,6 +13,7 @@ const Upload = () => {
       fileInputRef.current.click();
     }
   };
+
   const handleUpload = async () => {
     if (file.length === 0) return;
     setUploading(true);
@@ -27,7 +28,7 @@ const Upload = () => {
         console.log("File uploaded successfully", data);
       }
     }
-    // await fetchUploadedFiles();
+
     setUploading(false);
     setFile([]);
     if (fileInputRef.current) {
@@ -36,7 +37,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <>
       <div className="border-fgSecondary border-2 card hover:bg-bgSecondary rounded-md mx-20 mt-12 items-center justify-center cursor-pointer group gap-1.5 border-dashed px-20 py-8">
         <button
           className="btn bg-fgTertiary group-hover:bg-fgSecondary group-hover:text-bgPrimary text-fgPrimary flex w-fit items-center gap-1.5 text-lg font-semibold"
@@ -79,7 +80,7 @@ const Upload = () => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

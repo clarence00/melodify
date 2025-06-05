@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import * as mm from "music-metadata-browser";
 
-const formatDuration = (seconds) => {
+interface formatDurationProps {
+  seconds: number;
+}
+
+const formatDuration = ({ seconds }: formatDurationProps) => {
   if (!seconds || isNaN(seconds)) return "00:00";
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
@@ -11,7 +15,7 @@ const formatDuration = (seconds) => {
     .padStart(2, "0")}`;
 };
 
-export const useFetchAudioFiles = () => {
+const useFetchAudioFiles = () => {
   const [audioFiles, setAudioFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,7 +47,9 @@ export const useFetchAudioFiles = () => {
             URL.createObjectURL(
               new Blob([new Uint8Array(metadata.common.picture[0].data)])
             );
-          const duration = formatDuration(metadata.format.duration || 0);
+          const duration = formatDuration({
+            seconds: metadata.format.duration || 0,
+          });
 
           return {
             ...file,
@@ -70,3 +76,5 @@ export const useFetchAudioFiles = () => {
 
   return { audioFiles, isLoading };
 };
+
+export default useFetchAudioFiles;

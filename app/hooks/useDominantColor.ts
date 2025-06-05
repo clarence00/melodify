@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { FastAverageColor } from "fast-average-color";
 
-/**
- * Custom hook to get the dominant color of an image.
- * @param {string} imageUrl
- * @returns {string} CSS color string (e.g., 'rgb(123, 45, 67)')
- */
+interface UseDominantColorProps {
+  imageUrl: string;
+}
 
-export function useDominantColor(imageUrl) {
+const useDominantColor = ({ imageUrl }: UseDominantColorProps) => {
   const [color, setColor] = useState("#cccccc"); // fallback color
 
   useEffect(() => {
@@ -26,4 +24,6 @@ export function useDominantColor(imageUrl) {
   }, [imageUrl]);
 
   return color;
-}
+};
+
+export default useDominantColor;

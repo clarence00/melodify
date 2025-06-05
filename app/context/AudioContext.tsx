@@ -1,13 +1,24 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-const AudioContext = createContext();
+interface AudioContextType {
+  currentAudio: HTMLAudioElement | null;
+  currentFile: any;
+  playAudio: (file: any) => void;
+}
+
+const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export function AudioProvider({ children }) {
   const [currentAudio, setCurrentAudio] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
 
-  const playAudio = (file) => {
+  interface AudioFile {
+    publicUrl: string;
+    [key: string]: any;
+  }
+
+  const playAudio = (file: AudioFile): void => {
     if (currentAudio) {
       currentAudio.pause();
     }

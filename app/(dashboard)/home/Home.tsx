@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Play, ArrowLeft } from "lucide-react";
 import { useAudio } from "../../context/AudioContext";
-import { useFetchAudioFiles } from "../../hooks/useFetchAudioFiles";
+import useFetchAudioFiles from "../../hooks/useFetchAudioFiles";
 import { List, LayoutGrid, AlignJustify, Heart } from "lucide-react";
 import AlbumCard from "../../components/AlbumCard";
 
@@ -13,17 +13,20 @@ const Home = () => {
   const [selectedAlbumViewMode, setSelectedAlbumViewMode] = useState("list");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  const albums = audioFiles.reduce((acc, file) => {
-    const album = file.album || "Unknown Album";
-    if (!acc[album]) acc[album] = [];
-    acc[album].push(file);
-    return acc;
-  }, {});
+  const albums = audioFiles.reduce<Record<string, typeof audioFiles>>(
+    (acc, file) => {
+      const album = file.album || "Unknown Album";
+      if (!acc[album]) acc[album] = [];
+      acc[album].push(file);
+      return acc;
+    },
+    {}
+  );
 
   if (selectedAlbum) {
     const files = albums[selectedAlbum];
     return (
-      <div className="h-full w-full p-4 overflow-y-auto">
+      <>
         <div className="flex justify-between">
           <button
             className="mb-4 flex items-center text-fgSecondary w-full hover:text-fgPrimary"
@@ -143,57 +146,53 @@ const Home = () => {
             )
           )}
         </div>
-      </div>
+      </>
     );
   }
 
   return (
     <>
-      <div className="h-full w-full p-4 overflow-y-auto">
-        <div className="flex justify-end gap-4 w-full mb-4 pr-2">
-          <div
-            className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-              albumViewMode === "grid"
-                ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-                : "text-fgSecondary"
-            }`}
-            onClick={() => setAlbumViewMode("grid")}>
-            <LayoutGrid className="size-5" />
-          </div>
-          <div
-            className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-              albumViewMode === "list"
-                ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-                : "text-fgSecondary"
-            }`}
-            onClick={() => setAlbumViewMode("list")}>
-            <List className="size-5" />
-          </div>
+      <div className="flex justify-end gap-4 w-full mb-4 pr-2">
+        <div
+          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+            albumViewMode === "grid"
+              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
+              : "text-fgSecondary"
+          }`}
+          onClick={() => setAlbumViewMode("grid")}>
+          <LayoutGrid className="size-5" />
         </div>
-        <h1 className="mb-1.5 ml-1 text-2xl font-bold text-fgPrimary">
-          Albums
-        </h1>
-        <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-4" />
-        {/* Albums */}
-        <div className="flex flex-wrap gap-4">
-          {isLoading ? (
-            <div className="w-full text-center text-fgSecondary">
-              Fetching music...
-            </div>
-          ) : Object.keys(albums).length > 0 ? (
-            Object.entries(albums).map(([albumName, files]) => (
-              <AlbumCard
-                key={albumName}
-                albumName={albumName}
-                albumArt={files[0].albumArt}
-                artists={Array.from(new Set(files.map((f) => f.artist)))}
-                onClick={() => setSelectedAlbum(albumName)}
-              />
-            ))
-          ) : (
-            <p>No files uploaded yet.</p>
-          )}
+        <div
+          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+            albumViewMode === "list"
+              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
+              : "text-fgSecondary"
+          }`}
+          onClick={() => setAlbumViewMode("list")}>
+          <List className="size-5" />
         </div>
+      </div>
+      <h1 className="mb-1.5 ml-1 text-2xl font-bold text-fgPrimary">Albums</h1>
+      <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-4" />
+      {/* Albums */}
+      <div className="flex flex-wrap gap-4">
+        {isLoading ? (
+          <div className="w-full text-center text-fgSecondary">
+            Fetching music...
+          </div>
+        ) : Object.keys(albums).length > 0 ? (
+          Object.entries(albums).map(([albumName, files]) => (
+            <AlbumCard
+              key={albumName}
+              albumName={albumName}
+              albumArt={files[0].albumArt}
+              artists={Array.from(new Set(files.map((f) => f.artist)))}
+              onClick={() => setSelectedAlbum(albumName)}
+            />
+          ))
+        ) : (
+          <p>No files uploaded yet.</p>
+        )}
       </div>
     </>
   );

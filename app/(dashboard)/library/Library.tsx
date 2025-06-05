@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Heart, AlignJustify, List } from "lucide-react";
 import { useAudio } from "../../context/AudioContext";
-import { useFetchAudioFiles } from "../../hooks/useFetchAudioFiles";
+import useFetchAudioFiles from "../../hooks/useFetchAudioFiles";
 
 const Library = () => {
   const { audioFiles, isLoading } = useFetchAudioFiles();
@@ -10,7 +10,7 @@ const Library = () => {
   const [viewMode, setViewMode] = useState("list");
 
   return (
-    <div className="max-h-full w-full p-4">
+    <>
       <div className="flex justify-end gap-4 w-full mb-4 pr-2">
         <div
           className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
@@ -129,7 +129,7 @@ const Library = () => {
       ) : (
         <p>No files uploaded yet.</p>
       )}
-    </div>
+    </>
   );
 };
 

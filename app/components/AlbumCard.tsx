@@ -1,4 +1,4 @@
-import { useDominantColor } from "../hooks/useDominantColor";
+import useDominantColor from "../hooks/useDominantColor";
 
 const AlbumCard = ({ albumName, albumArt, artists, onClick }) => {
   const color = useDominantColor(albumArt);
