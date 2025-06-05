@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { FilePlus } from "lucide-react";
+import { toast } from "sonner";
 import { supabase } from "../../utils/supabaseClient";
 
 const Upload = () => {
@@ -23,8 +24,10 @@ const Upload = () => {
         .from("music")
         .upload(`uploads/${f.name}`, f);
       if (error) {
+        toast.error(`Error uploading ${f.name}: ${error.message}`);
         console.log("Error uploading file: ", error);
       } else {
+        toast.success(`${f.name} uploaded successfully`);
         console.log("File uploaded successfully", data);
       }
     }
