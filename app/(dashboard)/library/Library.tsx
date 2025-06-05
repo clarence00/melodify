@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Heart, AlignJustify, List } from "lucide-react";
+import { AlignJustify, List } from "lucide-react";
 import { useAudio } from "../../context/AudioContext";
 import useFetchAudioFiles from "../../hooks/useFetchAudioFiles";
+import ListViewDisplay from "../../components/ListViewDisplay";
+import CompactViewDisplay from "../../components/CompactViewDisplay";
 
 const Library = () => {
   const { audioFiles, isLoading } = useFetchAudioFiles();
@@ -60,68 +62,19 @@ const Library = () => {
             <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
             {audioFiles.map((file) =>
               viewMode === "list" ? (
-                <div
+                <ListViewDisplay
                   key={file.name}
-                  className="p-2 grid grid-cols-12 items-center w-full bg-bgSecondary cursor-pointer hover:bg-fgTertiary rounded-lg"
-                  onClick={() => playAudio(file)}>
-                  <div className="flex gap-4 items-center col-span-5">
-                    <img
-                      src={file.albumArt}
-                      alt={file.name}
-                      className="w-12 h-12 rounded-lg"
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-fgPrimary">
-                        {file.name.replace(".mp3", "")}
-                      </span>
-                      <span className="text-xs text-fgSecondary">
-                        {file.artist || "Unknown Artist"}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-4">
-                    <span className="text-sm text-fgSecondary">
-                      {file.album || "Unknown Album"}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-sm text-fgSecondary">
-                      {file.duration || "00:00"}
-                    </span>
-                  </div>
-                  <div className="place-items-center">
-                    <Heart className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
-                  </div>
-                </div>
+                  file={file}
+                  onPlay={playAudio}
+                  albumDisplay={true}
+                />
               ) : (
-                <div
+                <CompactViewDisplay
                   key={file.name}
-                  className="p-2 grid grid-cols-12 items-center w-full bg-bgSecondary cursor-pointer hover:bg-fgTertiary rounded-lg"
-                  onClick={() => playAudio(file)}>
-                  <div className="col-span-4">
-                    <span className="text-sm text-fgPrimary font-semibold">
-                      {file.name.replace(".mp3", "")}
-                    </span>
-                  </div>
-                  <div className="col-span-3">
-                    <span className="text-sm text-fgSecondary">
-                      {file.artist || "Unknown Artist"}
-                    </span>
-                  </div>
-                  <div className="col-span-3">
-                    <span className="text-sm text-fgSecondary">
-                      {file.album || "Unknown Album"}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-sm text-fgSecondary">
-                      {file.duration || "00:00"}
-                    </span>
-                  </div>
-                  <div className="place-items-center">
-                    <Heart className="size-4 text-fgSecondary cursor-pointer hover:text-accent" />
-                  </div>
-                </div>
+                  file={file}
+                  onPlay={playAudio}
+                  albumDisplay={true}
+                />
               )
             )}
           </div>
