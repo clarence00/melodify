@@ -4,6 +4,7 @@ import SideMenu from "./components/SideMenu";
 import Header from "./components/Header";
 import Player from "./components/Player";
 import { AudioProvider } from "./context/AudioContext";
+import { Toaster } from "sonner";
 
 const typeface = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
             <Header />
             <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary overflow-y-auto h-full">
               {children}
+              <Toaster position="top-right" />
             </div>
             <div className="h-24 ml-1 mr-3 mb-2 rounded-lg bg-bgSecondary">
               <Player />
