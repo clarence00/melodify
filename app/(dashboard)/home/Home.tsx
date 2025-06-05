@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import { ArrowLeft, Dot, Play, Plus, PlusCircle } from "lucide-react";
+import { ArrowLeft, Dot, Play, PlusCircle } from "lucide-react";
 import { useAudio } from "../../context/AudioContext";
 import useFetchAudioFiles from "../../hooks/useFetchAudioFiles";
-import { List, LayoutGrid, AlignJustify, Heart } from "lucide-react";
+import { List, AlignJustify } from "lucide-react";
 import AlbumCard from "../../components/AlbumCard";
 import ListViewDisplay from "../../components/ListViewDisplay";
 import CompactViewDisplay from "../../components/CompactViewDisplay";
@@ -11,8 +11,7 @@ import CompactViewDisplay from "../../components/CompactViewDisplay";
 const Home = () => {
   const { audioFiles, isLoading } = useFetchAudioFiles();
   const { playAudio } = useAudio();
-  const [albumViewMode, setAlbumViewMode] = useState("grid");
-  const [selectedAlbumViewMode, setSelectedAlbumViewMode] = useState("list");
+  const [viewMode, setViewMode] = useState("list");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   const albums = audioFiles.reduce<Record<string, typeof audioFiles>>(
@@ -65,20 +64,20 @@ const Home = () => {
               <div className="flex justify-end gap-4 w-full pr-2">
                 <div
                   className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-                    selectedAlbumViewMode === "list"
+                    viewMode === "list"
                       ? "bg-bgSecondary text-fgPrimary pointer-events-none"
                       : "text-fgSecondary"
                   }`}
-                  onClick={() => setSelectedAlbumViewMode("list")}>
+                  onClick={() => setViewMode("list")}>
                   <List className="size-5" />
                 </div>
                 <div
                   className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-                    selectedAlbumViewMode === "compact"
+                    viewMode === "compact"
                       ? "bg-bgSecondary text-fgPrimary pointer-events-none"
                       : "text-fgSecondary"
                   }`}
-                  onClick={() => setSelectedAlbumViewMode("compact")}>
+                  onClick={() => setViewMode("compact")}>
                   <AlignJustify className="size-5" />
                 </div>
               </div>
@@ -94,9 +93,7 @@ const Home = () => {
               <div className="px-2 grid grid-cols-12 font-semibold mt-4 text-fgSecondary">
                 <span
                   className={`${
-                    selectedAlbumViewMode === "list"
-                      ? "col-span-6"
-                      : "col-span-6"
+                    viewMode === "list" ? "col-span-6" : "col-span-6"
                   }`}>
                   Title
                 </span>
@@ -105,7 +102,7 @@ const Home = () => {
               </div>
               <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
               {files.map((file) =>
-                selectedAlbumViewMode === "list" ? (
+                viewMode === "list" ? (
                   <ListViewDisplay
                     key={file.name}
                     file={file}
@@ -150,29 +147,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex justify-end gap-4 w-full mb-4 pr-2">
-        <div
-          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-            albumViewMode === "grid"
-              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-              : "text-fgSecondary"
-          }`}
-          onClick={() => setAlbumViewMode("grid")}>
-          <LayoutGrid className="size-5" />
-        </div>
-        <div
-          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
-            albumViewMode === "list"
-              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-              : "text-fgSecondary"
-          }`}
-          onClick={() => setAlbumViewMode("list")}>
-          <List className="size-5" />
-        </div>
-      </div>
       <h1 className="mb-1.5 ml-1 text-2xl font-bold text-fgPrimary">Albums</h1>
       <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-4" />
-      {/* Albums */}
       <div className="flex flex-wrap gap-4">
         {isLoading ? (
           <div className="w-full text-center text-fgSecondary">
