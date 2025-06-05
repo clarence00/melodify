@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Play, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useAudio } from "../../context/AudioContext";
 import useFetchAudioFiles from "../../hooks/useFetchAudioFiles";
 import { List, LayoutGrid, AlignJustify, Heart } from "lucide-react";
