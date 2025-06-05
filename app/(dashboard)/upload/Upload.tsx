@@ -53,10 +53,6 @@ const Upload = () => {
     const validFiles = droppedFiles.filter((file) =>
       allowedTypes.includes(file.type)
     );
-    const invalidFiles = droppedFiles.filter(
-      (file) => !allowedTypes.includes(file.type)
-    );
-
     let updatedFiles = [...files, ...validFiles];
 
     setFiles((prevFiles) => {
