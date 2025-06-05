@@ -1,13 +1,16 @@
 "use client";
 import { useState, useRef } from "react";
-import { FilePlus } from "lucide-react";
+import { FilePlus, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "../../utils/supabaseClient";
 
 const Upload = () => {
-  const [file, setFile] = useState([]);
+  const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const fileInputRef = useRef(null);
+
+  const allowedTypes = ["audio/mpeg", "audio/mp3"];
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -15,11 +18,63 @@ const Upload = () => {
     }
   };
 
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedFiles = Array.from(event.target.files || []);
+    if (updatedFiles.length === 0) return;
+
+    setFiles((prevFiles) => {
+      const newUniqueFiles = updatedFiles.filter(
+        (newFile) =>
+          !prevFiles.some(
+            (f) => f.name === newFile.name && f.size === newFile.size
+          )
+      );
+      return [...prevFiles, ...newUniqueFiles];
+    });
+  };
+
+  const handleDeleteFile = (index: number) => {
+    const updatedFiles = files.filter((_, i) => i !== index);
+    setFiles(updatedFiles);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = () => setDragging(false);
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(false);
+
+    const droppedFiles = Array.from(event.dataTransfer.files);
+    const validFiles = droppedFiles.filter((file) =>
+      allowedTypes.includes(file.type)
+    );
+    const invalidFiles = droppedFiles.filter(
+      (file) => !allowedTypes.includes(file.type)
+    );
+
+    let updatedFiles = [...files, ...validFiles];
+
+    setFiles((prevFiles) => {
+      const newUniqueFiles = updatedFiles.filter(
+        (newFile) =>
+          !prevFiles.some(
+            (f) => f.name === newFile.name && f.size === newFile.size
+          )
+      );
+      return [...prevFiles, ...newUniqueFiles];
+    });
+  };
+
   const handleUpload = async () => {
-    if (file.length === 0) return;
+    if (files.length === 0) return;
     setUploading(true);
 
-    for (const f of file) {
+    for (const f of files) {
       const { data, error } = await supabase.storage
         .from("music")
         .upload(`uploads/${f.name}`, f);
@@ -33,7 +88,7 @@ const Upload = () => {
     }
 
     setUploading(false);
-    setFile([]);
+    setFiles([]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -41,10 +96,15 @@ const Upload = () => {
 
   return (
     <>
-      <div className="border-fgSecondary border-2 card hover:bg-bgSecondary rounded-md mx-20 mt-12 items-center justify-center cursor-pointer group gap-1.5 border-dashed px-20 py-8">
-        <button
-          className="btn bg-fgTertiary group-hover:bg-fgSecondary group-hover:text-bgPrimary text-fgPrimary flex w-fit items-center gap-1.5 text-lg font-semibold"
-          onClick={handleButtonClick}>
+      <div
+        className={`border-2 card hover:bg-bgSecondary rounded-md mx-20 mt-12 items-center justify-center cursor-pointer group gap-1.5 border-dashed px-20 py-8 ${
+          dragging ? "border-fgPrimary bg-bgSecondary" : "border-fgSecondary"
+        }`}
+        onClick={handleButtonClick}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}>
+        <button className="btn bg-fgTertiary group-hover:bg-fgSecondary group-hover:text-bgPrimary text-fgPrimary flex w-fit items-center gap-1.5 text-lg font-semibold">
           <FilePlus className="size-5" />
           Choose Files
         </button>
@@ -57,19 +117,23 @@ const Upload = () => {
           multiple
           ref={fileInputRef}
           accept=".mp3"
-          onChange={(e) => setFile(Array.from(e.target.files))}
+          onChange={handleFileSelect}
         />
       </div>
-      <div className="flex flex-col pl-20 gap-2 pt-4">
-        {file.length > 0 && (
+      <div className="flex flex-col p-20 gap-2 pt-4">
+        {files.length > 0 && (
           <>
             <span className="text-fgPrimary">Selected Files:</span>
-            {file.map((f, index) => (
-              <span
-                className="text-sm"
+            {files.map((f, index) => (
+              <div
+                className="flex justify-between"
                 key={index}>
-                {f.name}
-              </span>
+                <span className="text-sm">{f.name}</span>
+                <Trash
+                  className="size-4 text-red-500 cursor-pointer"
+                  onClick={() => handleDeleteFile(index)}
+                />
+              </div>
             ))}
             <button
               className={`mt-4 w-fit text-bgSecondary font-semibold hover:bg-green-600 px-4 py-1.5 rounded-md ${
