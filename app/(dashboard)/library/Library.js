@@ -71,10 +71,10 @@ const Library = () => {
                       className="w-12 h-12 rounded-lg"
                     />
                     <div className="flex flex-col">
-                      <span className="font-semibold text-fgPrimary">
+                      <span className="text-sm font-semibold text-fgPrimary">
                         {file.name.replace(".mp3", "")}
                       </span>
-                      <span className="text-sm text-fgSecondary">
+                      <span className="text-xs text-fgSecondary">
                         {file.artist || "Unknown Artist"}
                       </span>
                     </div>
@@ -99,7 +99,7 @@ const Library = () => {
                   className="p-2 grid grid-cols-12 items-center w-full bg-bgSecondary cursor-pointer hover:bg-fgTertiary rounded-lg"
                   onClick={() => playAudio(file)}>
                   <div className="col-span-4">
-                    <span className="text-fgPrimary font-semibold">
+                    <span className="text-sm text-fgPrimary font-semibold">
                       {file.name.replace(".mp3", "")}
                     </span>
                   </div>
