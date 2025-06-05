@@ -3,7 +3,7 @@ import React from "react";
 const Playlist = () => {
   return (
     <>
-      <div className="h-full w-full">Playlist</div>
+      <div className="max-h-full w-full py-4 px-8">Playlist</div>
     </>
   );
 };

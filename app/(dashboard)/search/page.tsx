@@ -3,7 +3,7 @@ import React from "react";
 const Search = () => {
   return (
     <>
-      <div className="h-full w-full">Search</div>
+      <div className="max-h-full w-full py-4 px-8">Search</div>
     </>
   );
 };
