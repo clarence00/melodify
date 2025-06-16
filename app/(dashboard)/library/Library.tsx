@@ -60,19 +60,19 @@ const Library = () => {
               <span></span>
             </div>
             <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
-            {audioFiles.map((file) =>
+            {audioFiles.map((file, idx) =>
               viewMode === "list" ? (
                 <ListViewDisplay
                   key={file.name}
                   file={file}
-                  onPlay={playAudio}
+                  onPlay={() => playAudio(audioFiles, idx)}
                   albumDisplay={true}
                 />
               ) : (
                 <CompactViewDisplay
                   key={file.name}
                   file={file}
-                  onPlay={playAudio}
+                  onPlay={() => playAudio(audioFiles, idx)}
                   albumDisplay={true}
                 />
               )

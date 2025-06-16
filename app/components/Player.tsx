@@ -1,17 +1,19 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { useAudio } from "../context/AudioContext";
 
 const Player = () => {
-  const { currentAudio, currentFile } = useAudio();
+  const { currentAudio, currentFile, playNext, playPrevious } = useAudio();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   useEffect(() => {
     if (!currentAudio) return;
+    currentAudio.volume = volume;
 
     const updateProgress = () => {
       const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
@@ -39,7 +41,17 @@ const Player = () => {
       currentAudio.removeEventListener("pause", handlePause);
       currentAudio.removeEventListener("ended", handleEnded);
     };
-  }, [currentAudio]);
+  }, [currentAudio, volume]);
+
+  useEffect(() => {
+    if (currentAudio) {
+      currentAudio.volume = volume;
+    }
+  }, [volume, currentAudio]);
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(Number(e.target.value));
+  };
 
   const togglePlay = () => {
     if (!currentAudio) return;
@@ -79,7 +91,10 @@ const Player = () => {
       <div className="flex flex-col items-center w-1/2">
         <div className="flex items-center gap-4">
           <button className="p-2 hover:text-accent">
-            <SkipBack className="size-4" />
+            <SkipBack
+              className="size-4"
+              onClick={playPrevious}
+            />
           </button>
           <button
             onClick={togglePlay}
@@ -91,7 +106,10 @@ const Player = () => {
             )}
           </button>
           <button className="p-2 hover:text-accent">
-            <SkipForward className="size-4" />
+            <SkipForward
+              className="size-4"
+              onClick={playNext}
+            />
           </button>
         </div>
         <div className="flex items-center gap-2 w-full mt-2">
@@ -106,7 +124,19 @@ const Player = () => {
         </div>
       </div>
 
-      <div className="w-1/4" />
+      <div className="w-1/4 flex items-center justify-end">
+        <Volume2 className="size-4 mr-2" />
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={volume}
+          onChange={handleVolumeChange}
+          className="w-24 custom-range"
+          style={{ "--value": volume } as React.CSSProperties}
+        />
+      </div>
     </div>
   );
 };

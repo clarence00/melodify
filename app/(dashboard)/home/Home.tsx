@@ -106,13 +106,13 @@ const Home = () => {
                   <ListViewDisplay
                     key={file.name}
                     file={file}
-                    onPlay={playAudio}
+                    onPlay={() => playAudio(file)}
                   />
                 ) : (
                   <CompactViewDisplay
                     key={file.name}
                     file={file}
-                    onPlay={playAudio}
+                    onPlay={() => playAudio(file)}
                     albumDisplay={false}
                   />
                 )
@@ -126,7 +126,9 @@ const Home = () => {
               className="min-w-60 max-w-60 h-60 rounded-lg"
             />
             <div className="flex gap-4">
-              <button className="rounded-full bg-accent px-4 py-1 flex items-center justify-center w-fit hover:bg-accent/80 transition-colors">
+              <button
+                className="rounded-full bg-accent px-4 py-1 flex items-center justify-center w-fit hover:bg-accent/80 transition-colors"
+                onClick={() => playAudio(files)}>
                 <Play
                   className="size-5 text-bgSecondary"
                   fill={"bg-bgSecondary"}
