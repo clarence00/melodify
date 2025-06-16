@@ -5,12 +5,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --range-fill: green;
+  --range-unfill: #d1d5db;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --range-fill: green;
+    --range-unfill: #d1d5db;
   }
 }
 
@@ -18,4 +22,111 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.custom-range {
+  /* Remove default appearance for all browsers */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Chrome, Safari, Opera, Edge Chromium */
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: green;
+  cursor: pointer;
+  border: 2px solid var(--background);
+  transition: background 0.2s;
+  margin-top: -4px;
+}
+
+.custom-range::-webkit-slider-thumb:hover {
+  background: #444;
+}
+
+/* Track height */
+.custom-range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--range-fill) 0%,
+    var(--range-fill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) 100%
+  );
+  border-radius: 2px;
+}
+
+/* Firefox */
+.custom-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: green;
+  cursor: pointer;
+  border: 2px solid var(--background);
+  transition: background 0.2s;
+  margin-top: -4px;
+}
+
+.custom-range::-moz-range-thumb:hover {
+  background: #444;
+}
+
+.custom-range::-moz-range-track {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--range-fill) 0%,
+    var(--range-fill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) 100%
+  );
+  border-radius: 2px;
+}
+
+/* IE and Edge */
+.custom-range::-ms-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: green;
+  cursor: pointer;
+  border: 2px solid var(--background);
+  transition: background 0.2s;
+  margin-top: -4px;
+}
+
+.custom-range::-ms-fill-lower,
+.custom-range::-ms-fill-upper {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--range-fill) 0%,
+    var(--range-fill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) calc(var(--value, 0) * 100%),
+    var(--range-unfill) 100%
+  );
+  border-radius: 2px;
+}
+
+/* Remove outline on focus */
+.custom-range:focus {
+  outline: none;
+}
+
+/* Remove border for Firefox */
+.custom-range::-moz-focus-outer {
+  border: 0;
 }
