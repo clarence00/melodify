@@ -8,16 +8,13 @@ import {
 } from "react";
 
 interface AudioFile {
-  publicUrl: string;
+  publicUrl?: string;
   [key: string]: string;
 }
 interface AudioContextType {
   currentAudio: HTMLAudioElement | null;
   currentFile: AudioFile | null;
-  playAudio: (
-    fileOrFiles: AudioFile | AudioFile[],
-    startIndex?: number
-  ) => void;
+  playAudio: (files: AudioFile[], startIndex?: number) => void;
   playNext: () => void;
   playPrevious: () => void;
   isPlaying: boolean;
