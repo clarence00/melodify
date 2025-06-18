@@ -140,3 +140,7 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.icon-filled {
+  fill: #e0e0e0 !important;
+}
