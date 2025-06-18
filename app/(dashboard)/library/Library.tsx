@@ -39,7 +39,7 @@ const Library = () => {
         </div>
       ) : audioFiles.length > 0 ? (
         <>
-          <div className="flex-col flex gap-2">
+          <div className="flex-col flex gap-2 pb-2">
             <div className="px-2 grid grid-cols-12 font-semibold text-fgSecondary">
               <span
                 className={`${

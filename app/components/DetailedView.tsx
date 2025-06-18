@@ -105,7 +105,7 @@ const DetailedView = ({
           <Dot className="size-4" />
           <span>{totalDurationFormatted}</span>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pb-2">
           <div className="px-2 grid grid-cols-12 font-semibold mt-4 text-fgSecondary">
             <span className="col-span-6">Title</span>
             <span>Duration</span>
