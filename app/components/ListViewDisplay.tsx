@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Ellipsis, Heart } from "lucide-react";
 
 interface ListViewSongDetails {
   name: string;
@@ -55,8 +55,9 @@ const ListViewDisplay = ({
           {file.duration || "00:00"}
         </span>
       </div>
-      <div className="place-items-center">
+      <div className="flex pr-8 gap-6 justify-end col-span-2">
         <Heart className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
+        <Ellipsis className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Ellipsis, Heart } from "lucide-react";
 
 interface CompactViewSongDetails {
   name: string;
@@ -47,8 +47,9 @@ const CompactViewDisplay = ({
           {file.duration || "00:00"}
         </span>
       </div>
-      <div className="place-items-center">
+      <div className="place-items-center flex gap-6 justify-end pr-2">
         <Heart className="size-4 text-fgSecondary cursor-pointer hover:text-accent" />
+        <Ellipsis className="size-4 text-fgSecondary cursor-pointer hover:text-accent" />
       </div>
     </div>
   );
