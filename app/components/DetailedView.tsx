@@ -68,37 +68,37 @@ const DetailedView = ({
     <div className="flex gap-16">
       <div className="w-full flex flex-col overflow-y-auto">
         <button
-          className="mb-2.5 flex items-center text-fgSecondary w-full hover:text-fgPrimary"
+          className="mb-2.5 flex items-center text-base-content cursor-pointer w-full hover:text-base-content-200"
           onClick={onBack}>
           <ArrowLeft className="mr-2 size-5" />
           Back to Home
         </button>
         <div className="flex justify-between">
-          <h2 className="text-2xl ml-1 font-bold w-full text-fgPrimary">
+          <h2 className="text-2xl ml-1 font-bold w-full text-base-content">
             {title}
           </h2>
           <div className="flex justify-end gap-4 w-full pr-2">
             <div
-              className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer h-fit ${
+              className={`hover:bg-base-300 p-1 rounded-md cursor-pointer h-fit ${
                 viewMode === "list"
-                  ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-                  : "text-fgSecondary"
+                  ? "bg-primary text-primary-content pointer-events-none"
+                  : "text-base-content-200"
               }`}
               onClick={() => setViewMode("list")}>
               <List className="size-5" />
             </div>
             <div
-              className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer h-fit ${
+              className={`hover:bg-base-300 p-1 rounded-md cursor-pointer h-fit ${
                 viewMode === "compact"
-                  ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-                  : "text-fgSecondary"
+                  ? "bg-primary text-primary-content pointer-events-none"
+                  : "text-base-content-200"
               }`}
               onClick={() => setViewMode("compact")}>
               <AlignJustify className="size-5" />
             </div>
           </div>
         </div>
-        <div className="flex gap-1 items-center ml-1 text-sm text-fgSecondary mb-2">
+        <div className="flex gap-1 items-center ml-1 text-sm text-base-content-200 mb-2">
           {showArtist && <span>{files[0].artist}</span>}
           {showArtist && <Dot className="size-4" />}
           <span>{files.length} songs</span>
@@ -106,12 +106,12 @@ const DetailedView = ({
           <span>{totalDurationFormatted}</span>
         </div>
         <div className="flex flex-col gap-2 pb-2">
-          <div className="px-2 grid grid-cols-12 font-semibold mt-4 text-fgSecondary">
+          <div className="px-2 grid grid-cols-12 font-semibold mt-4 text-base-content">
             <span className="col-span-6">Title</span>
             <span>Duration</span>
             <span></span>
           </div>
-          <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
+          <div className="h-0.5 bg-neutral w-full rounded-full mb-2.5" />
           {files.map((file, idx) =>
             viewMode === "list" ? (
               <ListViewDisplay
@@ -138,18 +138,18 @@ const DetailedView = ({
         />
         <div className="flex gap-4">
           <button
-            className="rounded-full bg-accent px-4 py-1 flex items-center justify-center w-fit hover:bg-accent/80 transition-colors"
+            className="rounded-full bg-secondary px-4 py-1 flex items-center justify-center w-fit hover:bg-secondary/50 cursor-pointer transition-colors"
             onClick={() => playAudio(files)}>
             <Play
-              className="size-5 text-bgSecondary"
-              fill={"bg-bgSecondary"}
+              className="size-5 text-secondary-content"
+              fill="oklch(96% 0.018 272.314)"
             />
-            <span className="text-bgSecondary ml-2 text-xl font-bold">
+            <span className="text-secondary-content ml-2 text-xl font-bold">
               Play
             </span>
           </button>
-          <button className="rounded-full hover:bg-fgTertiary p-1">
-            <PlusCircle className="size-7 text-fgSecondary" />
+          <button className="rounded-full hover:bg-base-content-200/30 p-1.5 cursor-pointer">
+            <PlusCircle className="size-6 text-base-content" />
           </button>
         </div>
       </div>

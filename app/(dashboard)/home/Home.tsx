@@ -118,21 +118,23 @@ const Home = () => {
 
   return (
     <>
-      <h1 className="mb-1.5 ml-1 text-2xl font-bold text-fgPrimary">Albums</h1>
-      <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-4" />
+      <h1 className="mb-1.5 ml-1 text-2xl font-bold text-base-content">
+        Albums
+      </h1>
+      <div className="h-0.5 bg-neutral w-full rounded-full mb-4" />
       <div className="relative mb-12">
         <button
-          className="absolute left-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-bgSecondary/70 h-full transition"
+          className="absolute left-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-base-300/50 h-full transition"
           disabled={isLoading || Object.keys(albums).length === 0}
           onClick={() => handleScrollLeft(albumScrollContainerRef)}>
-          <ArrowLeft className="size-6 text-fgPrimary opacity-0 group-hover:opacity-100" />
+          <ArrowLeft className="size-6 text-base-content opacity-0 group-hover:opacity-100" />
         </button>
         <div
           ref={albumScrollContainerRef}
           style={{ scrollBehavior: "smooth" }}
           className="flex overflow-x-scroll scrollbar-hide scroll-smooth gap-4">
           {isLoading ? (
-            <div className="w-full text-center text-fgSecondary">
+            <div className="w-full text-center text-base-content">
               Fetching music...
             </div>
           ) : Object.keys(albums).length > 0 ? (
@@ -150,27 +152,29 @@ const Home = () => {
           )}
         </div>
         <button
-          className="absolute right-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-bgSecondary/70 h-full transition"
+          className="absolute right-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-base-300/50 h-full transition"
           disabled={isLoading || Object.keys(albums).length === 0}
           onClick={() => handleScrollRight(albumScrollContainerRef)}>
-          <ArrowRight className="size-6 text-fgPrimary opacity-0 group-hover:opacity-100" />
+          <ArrowRight className="size-6 text-base-content opacity-0 group-hover:opacity-100" />
         </button>
       </div>
-      <h1 className="mb-1.5 ml-1 text-2xl font-bold text-fgPrimary">Artist</h1>
-      <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-4" />
+      <h1 className="mb-1.5 ml-1 text-2xl font-bold text-base-content">
+        Artist
+      </h1>
+      <div className="h-0.5 bg-neutral w-full rounded-full mb-4" />
       <div className="relative mb-8">
         <button
-          className="absolute left-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-bgSecondary/70 h-full transition"
+          className="absolute left-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-base-300/50 h-full transition"
           disabled={isLoading || Object.keys(albums).length === 0}
           onClick={() => handleScrollLeft(artistScrollContainerRef)}>
-          <ArrowLeft className="size-6 text-fgPrimary opacity-0 group-hover:opacity-100" />
+          <ArrowLeft className="size-6 text-base-content opacity-0 group-hover:opacity-100" />
         </button>
         <div
           ref={artistScrollContainerRef}
           style={{ scrollBehavior: "smooth" }}
           className="flex overflow-x-scroll scrollbar-hide scroll-smooth gap-4">
           {isLoading ? (
-            <div className="w-full text-center text-fgSecondary">
+            <div className="w-full text-center text-base-content">
               Fetching music...
             </div>
           ) : Object.keys(artists).length > 0 ? (
@@ -186,10 +190,10 @@ const Home = () => {
           )}
         </div>
         <button
-          className="absolute right-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-bgSecondary/70 h-full transition"
+          className="absolute right-0 top-1/2 flex group -translate-y-1/2 z-10 items-center px-2 bg-transparent cursor-pointer hover:bg-base-300/50 h-full transition"
           disabled={isLoading || Object.keys(albums).length === 0}
           onClick={() => handleScrollRight(albumScrollContainerRef)}>
-          <ArrowRight className="size-6 text-fgPrimary opacity-0 group-hover:opacity-100" />
+          <ArrowRight className="size-6 text-base-content opacity-0 group-hover:opacity-100" />
         </button>
       </div>
     </>

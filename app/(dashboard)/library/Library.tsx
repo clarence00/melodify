@@ -15,32 +15,32 @@ const Library = () => {
     <>
       <div className="flex justify-end gap-4 w-full mb-4 pr-2">
         <div
-          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+          className={`hover:bg-base-300 p-1 rounded-md cursor-pointer ${
             viewMode === "list"
-              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-              : "text-fgSecondary"
+              ? "bg-primary text-primary-content pointer-events-none"
+              : "text-base-content-200"
           }`}
           onClick={() => setViewMode("list")}>
           <List className="size-5" />
         </div>
         <div
-          className={`hover:bg-fgTertiary p-1 rounded-md cursor-pointer ${
+          className={`hover:bg-base-300 p-1 rounded-md cursor-pointer ${
             viewMode === "compact"
-              ? "bg-bgSecondary text-fgPrimary pointer-events-none"
-              : "text-fgSecondary"
+              ? "bg-primary text-primary-content pointer-events-none"
+              : "text-base-content-200"
           }`}
           onClick={() => setViewMode("compact")}>
           <AlignJustify className="size-5" />
         </div>
       </div>
       {isLoading ? (
-        <div className="w-full text-center text-fgSecondary">
+        <div className="w-full text-center text-base-content">
           Fetching music...
         </div>
       ) : audioFiles.length > 0 ? (
         <>
           <div className="flex-col flex gap-2 pb-2">
-            <div className="px-2 grid grid-cols-12 font-semibold text-fgSecondary">
+            <div className="px-2 grid grid-cols-12 font-semibold text-base-content">
               <span
                 className={`${
                   viewMode === "list" ? "col-span-5" : "col-span-4"
@@ -59,7 +59,7 @@ const Library = () => {
               <span>Duration</span>
               <span></span>
             </div>
-            <div className="h-0.5 bg-fgTertiary w-full rounded-full mb-2.5" />
+            <div className="h-0.5 bg-neutral w-full rounded-full mb-2.5" />
             {audioFiles.map((file, idx) =>
               viewMode === "list" ? (
                 <ListViewDisplay

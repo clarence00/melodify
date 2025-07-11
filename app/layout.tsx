@@ -20,17 +20,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${typeface.className} antialiased flex h-screen bg-bgMain`}
-        data-theme="lofi">
+        className={`${typeface.className} antialiased flex h-screen bg-base-100`}
+        data-theme="melodify">
         <AudioProvider>
           <SideMenu />
           <div className="flex flex-col grow overflow-hidden">
             <Header />
-            <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-bgSecondary overflow-y-auto h-full">
+            <div className="grow ml-1 mt-1 mb-2 mr-3 border-2 rounded-lg border-neutral overflow-y-auto h-full">
               {children}
               <Toaster position="top-right" />
             </div>
-            <div className="h-24 ml-1 mr-3 mb-2 rounded-lg bg-bgSecondary">
+            <div className="h-24 ml-1 mr-3 mb-2 rounded-lg bg-neutral">
               <Player />
             </div>
           </div>

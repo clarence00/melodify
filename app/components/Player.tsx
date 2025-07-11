@@ -84,20 +84,20 @@ const Player = () => {
       <div className="flex items-center gap-4 w-[40%]">
         <button
           onClick={togglePlay}
-          className="p-2 hover:text-fgPrimary text-bgPrimary rounded-full bg-accent hover:bg-accent/70">
+          className="p-2 hover:text-base-content text-neutral rounded-full bg-accent cursor-pointer hover:bg-accent/50">
           {isPlaying ? (
             <Pause className="size-5" />
           ) : (
             <Play className="size-5" />
           )}
         </button>
-        <button className="p-2 hover:bg-fgTertiary rounded-full text-fgPrimary">
+        <button className="p-2 hover:bg-base-content-200/30 cursor-pointer rounded-full text-base-content">
           <SkipBack
             className="size-4 icon-filled"
             onClick={playPrevious}
           />
         </button>
-        <button className="p-2 hover:bg-fgTertiary rounded-full text-fgPrimary">
+        <button className="p-2 hover:bg-base-content-200/30 cursor-pointer rounded-full text-base-content">
           <SkipForward
             className="size-4 icon-filled"
             onClick={playNext}
@@ -105,7 +105,7 @@ const Player = () => {
         </button>
         <div className="flex items-center gap-2 w-full">
           <span className="text-xs">{formatTime(currentTime)}</span>
-          <div className="w-full h-1 bg-bgMain rounded-full">
+          <div className="w-full h-1 bg-base-100 rounded-full">
             <div
               className="h-full bg-accent rounded-full"
               style={{ width: `${progress}%` }}
@@ -114,7 +114,7 @@ const Player = () => {
           <span className="text-xs">{formatTime(duration)}</span>
         </div>
       </div>
-      <div className="h-[65%] w-0.5 bg-fgSecondary/50 rounded-full" />
+      <div className="h-[65%] w-0.5 bg-base-content-200/30 rounded-full" />
       <div className="flex items-center justify-between w-[55%] h-full">
         <div className="flex gap-2.5 justify-start items-center">
           {currentFile.albumArt && (
@@ -125,25 +125,25 @@ const Player = () => {
             />
           )}
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-fgPrimary">
+            <span className="text-sm font-bold text-base-content">
               {currentFile.name.replace(".mp3", "")}
             </span>
-            <span className="text-xs text-fgSecondary">
+            <span className="text-xs text-base-content-200">
               {currentFile.artist}
             </span>
-            <span className="text-xs text-fgSecondary">
+            <span className="text-xs text-base-content-200">
               {currentFile.album}
             </span>
           </div>
         </div>
-        <div className="flex gap-1 text-fgSecondary items-center">
-          <button className="p-2 hover:bg-fgTertiary hover:text-accent rounded-full">
+        <div className="flex gap-1 text-base-content-200 items-center">
+          <button className="p-2 hover:bg-base-content-200/30 hover:text-success rounded-full cursor-pointer">
             <Heart className="size-5" />
           </button>
-          <button className="p-2 hover:bg-fgTertiary hover:text-accent rounded-full">
+          <button className="p-2 hover:bg-base-content-200/30 hover:text-success rounded-full cursor-pointer">
             <PlusCircle className="size-5" />
           </button>
-          <button className="p-2 hover:bg-fgTertiary hover:text-accent rounded-full">
+          <button className="p-2 hover:bg-base-content-200/30 hover:text-success rounded-full cursor-pointer">
             <Ellipsis className="size-5" />
           </button>
           <div className=" flex ml-1.5 items-center justify-end">

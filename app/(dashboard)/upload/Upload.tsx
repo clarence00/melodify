@@ -93,18 +93,20 @@ const Upload = () => {
   return (
     <>
       <div
-        className={`border-2 card hover:bg-bgSecondary rounded-md mx-20 mt-12 items-center justify-center cursor-pointer group gap-1.5 border-dashed px-20 py-8 ${
-          dragging ? "border-fgPrimary bg-bgSecondary" : "border-fgSecondary"
+        className={`border-2 card hover:bg-base-300 rounded-md mx-20 mt-12 items-center justify-center cursor-pointer group gap-1.5 border-dashed px-20 py-8 ${
+          dragging
+            ? "border-primary bg-base-content-200/30"
+            : "border-base-content-200"
         }`}
         onClick={handleButtonClick}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}>
-        <button className="btn bg-fgTertiary group-hover:bg-fgSecondary group-hover:text-bgPrimary text-fgPrimary flex w-fit items-center gap-1.5 text-lg font-semibold">
+        <button className="btn bg-base-300 group-hover:bg-primary group-hover:text-primary-content text-base-content flex w-fit items-center gap-1.5 text-lg font-semibold">
           <FilePlus className="size-5" />
           Choose Files
         </button>
-        <span className="text-fgPrimary font-semibold">
+        <span className="text-base-content font-semibold">
           or drop your files here
         </span>
         <input
@@ -119,23 +121,23 @@ const Upload = () => {
       <div className="flex flex-col p-20 gap-2 pt-4">
         {files.length > 0 && (
           <>
-            <span className="text-fgPrimary">Selected Files:</span>
+            <span className="text-base-content">Selected Files:</span>
             {files.map((f, index) => (
               <div
-                className="flex justify-between"
+                className="flex justify-between text-neutral-content"
                 key={index}>
                 <span className="text-sm">{f.name}</span>
                 <Trash
-                  className="size-4 text-red-500 cursor-pointer"
+                  className="size-4 text-error cursor-pointer"
                   onClick={() => handleDeleteFile(index)}
                 />
               </div>
             ))}
             <button
-              className={`mt-4 w-fit text-bgSecondary font-semibold hover:bg-green-600 px-4 py-1.5 rounded-md ${
+              className={`mt-4 w-fit text-base-content font-semibold hover:bg-secondary/50 cursor-pointer px-4 py-1.5 rounded-md ${
                 uploading
-                  ? "pointer-events-none bg-fgTertiary"
-                  : "bg-accent pointer-events-auto"
+                  ? "pointer-events-none bg-neutral"
+                  : "bg-secondary pointer-events-auto"
               }`}
               onClick={handleUpload}>
               Upload

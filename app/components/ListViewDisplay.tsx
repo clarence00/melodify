@@ -23,7 +23,7 @@ const ListViewDisplay = ({
 
   return (
     <div
-      className="p-2 grid grid-cols-12 items-center w-full bg-bgPrimary cursor-pointer hover:bg-fgTertiary rounded-lg"
+      className="p-2 grid grid-cols-12 items-center w-full bg-base-200 cursor-pointer hover:bg-base-300 rounded-lg"
       onClick={() => onPlay(file)}>
       <div
         className={`flex gap-4 items-center ${
@@ -35,29 +35,29 @@ const ListViewDisplay = ({
           className="w-12 h-12 rounded-lg"
         />
         <div className="flex flex-col">
-          <span className="text-sm font-semibold text-fgPrimary">
+          <span className="text-sm font-semibold text-base-content">
             {file.name.replace(".mp3", "")}
           </span>
-          <span className="text-xs text-fgSecondary">
+          <span className="text-xs text-base-content-200">
             {file.artist || "Unknown Artist"}
           </span>
         </div>
       </div>
       {albumDisplay && (
         <div className="col-span-4">
-          <span className="text-sm text-fgSecondary">
+          <span className="text-sm text-base-content-200">
             {file.album || "Unknown Album"}
           </span>
         </div>
       )}
       <div>
-        <span className="text-sm text-fgSecondary">
+        <span className="text-sm text-base-content-200">
           {file.duration || "00:00"}
         </span>
       </div>
       <div className="flex pr-8 gap-6 justify-end col-span-2">
-        <Heart className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
-        <Ellipsis className="size-5 text-fgSecondary cursor-pointer hover:text-accent" />
+        <Heart className="size-5 text-base-content-200 cursor-pointer hover:text-success" />
+        <Ellipsis className="size-5 text-base-content-200 cursor-pointer hover:text-success" />
       </div>
     </div>
   );
